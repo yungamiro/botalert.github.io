@@ -5,7 +5,7 @@ import { MonitoringTarget } from '../types';
 
 export class MonitoringService {
   private monitoringInterval: NodeJS.Timeout | null = null;
-  private readonly INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+  private intervalMs = 5 * 60 * 1000; // 5 minutes
 
   constructor(
     private databaseService: DatabaseService,
