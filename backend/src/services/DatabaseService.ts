@@ -13,7 +13,7 @@ export class DatabaseService {
     const run = promisify(this.db.run.bind(this.db));
     
     // Create monitoring targets table
-    await run(`
+    await run.call(this.db, `
       CREATE TABLE IF NOT EXISTS monitoring_targets (
         id TEXT PRIMARY KEY,
         url TEXT NOT NULL,
