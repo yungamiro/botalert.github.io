@@ -50,7 +50,7 @@ export const BotAlertDashboard: React.FC<BotAlertDashboardProps> = ({
   const activeTargets = targets.filter(target => target.isActive);
 
   const tabs = [
-    { id: 'overview', name: 'Overview', icon: '📊' },
+    { id: 'overview', name: 'Overview', icon: '📊', badge: undefined },
     { id: 'targets', name: 'Targets', icon: '🎯', badge: activeTargets.length },
     { id: 'alerts', name: 'Alerts', icon: '🚨', badge: unreadAlerts.length },
   ] as const;
