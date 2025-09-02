@@ -102,8 +102,8 @@ export class DatabaseService {
   }
 
   async updateMonitoringTarget(id: string, updates: Partial<MonitoringTarget>): Promise<void> {
-    const fields = [];
-    const values = [];
+    const fields: string[] = [];
+    const values: any[] = [];
 
     if (updates.url !== undefined) {
       fields.push('url = ?');
