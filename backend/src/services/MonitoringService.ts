@@ -25,7 +25,7 @@ export class MonitoringService {
     
     this.monitoringInterval = setInterval(() => {
       this.runMonitoringCycle();
-    }, this.INTERVAL_MS);
+    }, this.intervalMs);
   }
 
   stopMonitoring(): void {
