@@ -2,6 +2,10 @@ import sqlite3 from 'sqlite3';
 import { promisify } from 'util';
 import { MonitoringTarget, Alert, PushSubscription } from '../types';
 
+interface DatabaseRow {
+  [key: string]: any;
+}
+
 export class DatabaseService {
   private db: sqlite3.Database;
 
@@ -13,7 +17,7 @@ export class DatabaseService {
     const run = promisify(this.db.run.bind(this.db));
     
     // Create monitoring targets table
-    await run.call(this.db, `
+    await run(`
       CREATE TABLE IF NOT EXISTS monitoring_targets (
         id TEXT PRIMARY KEY,
         url TEXT NOT NULL,
@@ -67,7 +71,7 @@ export class DatabaseService {
 
   async getMonitoringTargets(): Promise<MonitoringTarget[]> {
     const all = promisify(this.db.all.bind(this.db));
-    const rows = await all('SELECT * FROM monitoring_targets ORDER BY created_at DESC');
+    const rows = await all('SELECT * FROM monitoring_targets ORDER BY created_at DESC') as DatabaseRow[];
     
     return rows.map(row => ({
       id: row.id,
@@ -139,7 +143,7 @@ export class DatabaseService {
 
   async getAlerts(limit: number = 50): Promise<Alert[]> {
     const all = promisify(this.db.all.bind(this.db));
-    const rows = await all('SELECT * FROM alerts ORDER BY timestamp DESC LIMIT ?', [limit]);
+    const rows = await all('SELECT * FROM alerts ORDER BY timestamp DESC LIMIT ?', [limit]) as DatabaseRow[];
     
     return rows.map(row => ({
       id: row.id,
@@ -171,7 +175,7 @@ export class DatabaseService {
 
   async getPushSubscriptions(): Promise<PushSubscription[]> {
     const all = promisify(this.db.all.bind(this.db));
-    const rows = await all('SELECT * FROM push_subscriptions');
+    const rows = await all('SELECT * FROM push_subscriptions') as DatabaseRow[];
     
     return rows.map(row => ({
       id: row.id,
