@@ -137,7 +137,7 @@ export class MonitoringService {
       throw new Error('Monitoring interval must be at least 1 minute');
     }
     
-    this.INTERVAL_MS = intervalMs;
+    this.intervalMs = intervalMs;
     
     if (this.monitoringInterval) {
       this.stopMonitoring();
